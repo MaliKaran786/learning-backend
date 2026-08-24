@@ -4,6 +4,15 @@ const users=require('./MOCK_DATA.json')
 const { json } = require('stream/consumers')
 const app=express()
 app.use(express.urlencoded({extended : false}))
+app.use((req,res,next)=>{
+    fs.appendFile('log.txt',`\n${Date.now()} :${req.ip} : ${req.method} : ${req.path}`,(err,data)=>{
+      next()
+    })
+})
+app.use((req,res,next)=>{
+    console.log("Middleware 1",req.myusername);
+    return res.end("Hey")
+})
 app.get('/users',(req,res)=>{
   const html=`
   <ul>
