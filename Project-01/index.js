@@ -11,7 +11,7 @@ app.use((req,res,next)=>{
 })
 app.use((req,res,next)=>{
     console.log("Middleware 1",req.myusername);
-    return res.end("Hey")
+    next()
 })
 app.get('/users',(req,res)=>{
   const html=`
@@ -22,6 +22,8 @@ app.get('/users',(req,res)=>{
   res.send(html)
 })
 app.get('/api/users',(req,res)=>{
+  res.setHeader("X-MyName","Karan Malik")
+  console.log(req.headers)
   return res.json(users)
 })
 app
