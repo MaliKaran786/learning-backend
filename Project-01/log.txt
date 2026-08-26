@@ -5,3 +5,10 @@
 1787670542957 :::1 : GET : /api/users
 1787670593647 :::1 : GET : /api/users
 1787670751871 :::1 : GET : /api/users
+1787755498631 :::1 : POST : /api/users/203
+1787755523413 :::1 : POST : /api/users/203
+1787755537689 :::1 : POST : /api/users
+1787755555740 :::1 : POST : /api/users
+1787755881837 :::1 : POST : /api/users
+1787755904383 :::1 : POST : /api/users
+1787756044577 :::1 : GET : /api/users/6000
