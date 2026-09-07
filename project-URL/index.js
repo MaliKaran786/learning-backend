@@ -1,9 +1,13 @@
 const express = require('express')
 const path=require('path')
 const {connecToMongoDB}=require("./connect")
-const urlRoute=require('./routes/url')
+
 const URL=require('./models/url')
+
+const urlRoute=require('./routes/url')
 const staticRoute=require('./routes/staticRoute')
+const userRoute=require('./routes/user')
+
 const app=express()
 
 
@@ -17,6 +21,7 @@ connecToMongoDB('mongodb://localhost:27017/short-url')
 
 const PORT=3001
 app.use("/url",urlRoute)
+app.use("/user",userRoute)
 app.use('/',staticRoute)
 app.get("/test", async(req,res)=>{
   const allURLs=await URL.find({})
