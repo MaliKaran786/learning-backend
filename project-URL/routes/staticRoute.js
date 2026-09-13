@@ -1,21 +1,27 @@
-const express = require('express')
-const router=express.Router()
-const URL = require('../models/url')
-router.get('/',async (req,res)=>{
-  console.log("REQ.USER:", req.user?._id?.toString());
-  if(!req.user) return res.redirect('/login')
-  const allURLS=await URL.find({createdBy:req.user._id})
-console.log("USER URLS:", allURLS);
+const express = require("express");
+const router = express.Router();
+const URL = require("../models/url");
+const { restrictTo } = require("../middlewares/auth");
 
-  return res.render('home',{
-    urls:allURLS,
-  })
-})
-router.get('/signup',async(req,res)=>{
-  return res.render('signup') 
-})
-router.get('/login',async(req,res)=>{
-  return res.render('login') 
-})
+router.get("/admin/urls", restrictTo(["ADMIN"]), async (req, res) => {
+  const allURLS = await URL.find({});
 
-module.exports=router
+  return res.render("home", {
+    urls: allURLS,
+  });
+});
+router.get("/", restrictTo(["NORMAL", "ADMIN"]), async (req, res) => {
+  const allURLS = await URL.find({ createdBy: req.user._id });
+
+  return res.render("home", {
+    urls: allURLS,
+  });
+});
+router.get("/signup", async (req, res) => {
+  return res.render("signup");
+});
+router.get("/login", async (req, res) => {
+  return res.render("login");
+});
+
+module.exports = router;
